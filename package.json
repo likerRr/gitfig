@@ -1,0 +1,32 @@
+{
+  "name": "gitfig",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "repository": "likerRr/gitfig",
+  "author": {
+    "name": "Alexey Lizurchik",
+    "email": "al.lizurchik@gmail.com",
+    "url": "https://github.com/likerRr/gitfig"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    ""
+  ],
+  "dependencies": {
+    "iniparser": "^1.0.5",
+    "os-homedir": "^1.0.2"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "xo": "^0.17.0"
+  }
+}
