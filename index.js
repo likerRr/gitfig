@@ -26,12 +26,26 @@ Object.assign(gitFig, CONFIG_TYPE);
 
 module.exports = gitFig;
 
+/**
+ * Returns parsed ini file as object by config type
+ * @param type
+ * @param sync
+ * @return {Promise<object>|object}
+ * @throws if sync
+ */
 function getConfig(type, sync = false) {
 	const configPath = getConfigPath(type, sync);
 
 	return parseIni(configPath, sync);
 }
 
+/**
+ * Returns parsed ini file as object by path
+ * @param cPath
+ * @param sync
+ * @return {Promise<object>|object}
+ * @throws if sync
+ */
 function parseIni(cPath, sync = false) {
 	if (!cPath) {
 		return {};
@@ -52,6 +66,13 @@ function parseIni(cPath, sync = false) {
 	});
 }
 
+/**
+ * Returns config path by config type
+ * @param type
+ * @param sync
+ * @return {Promise<string>|string}
+ * @throws if sync
+ */
 function getConfigPath(type, sync = false) {
 	if (arguments.length === 1 && typeof type === 'boolean') {
 		sync = type;
@@ -77,6 +98,7 @@ function getConfigPath(type, sync = false) {
  * Resolves local path if possible, then global path if possible and then custom path
  * @param sync
  * @return {Promise<string>|string}
+ * @throws if sync
  */
 function getConfigPathCascade(sync = false) {
 	if (sync) {
@@ -91,6 +113,13 @@ function getConfigPathCascade(sync = false) {
 		.then(resPath => resPath, () => getConfigPathGlobal(sync));
 }
 
+/**
+ * Returns file path if file is available for reading
+ * @param fName
+ * @param sync
+ * @return {Promise<string>|string}
+ * @throws if sync
+ */
 function readResolve(fName, sync = false) {
 	if (sync) {
 		tryRead(fName, sync);
@@ -101,6 +130,13 @@ function readResolve(fName, sync = false) {
 	return tryRead(fName, sync).then(() => fName);
 }
 
+/**
+ * Check if file is available for reading
+ * @param fName
+ * @param sync
+ * @return {Promise|undefined}
+ * @throws if sync
+ */
 function tryRead(fName, sync = false) {
 	if (sync) {
 		return fs.accessSync(fName, fs.constants.R_OK);
