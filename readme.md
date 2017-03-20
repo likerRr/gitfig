@@ -1,5 +1,6 @@
-![Dependencies](https://img.shields.io/david/likerRr/gitfig.svg)
 ![Build Status](https://img.shields.io/travis/likerRr/gitfig/master.svg)
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
+![Dependencies](https://img.shields.io/david/likerRr/gitfig.svg)
 
 # Git(con)fig
 
