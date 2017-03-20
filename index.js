@@ -40,8 +40,8 @@ module.exports = gitFig;
 
 /**
  * Returns parsed ini file as object by config type
- * @param type
- * @param sync
+ * @param [type]
+ * @param [sync]
  * @return {Promise<object>|object}
  * @throws if sync
  */
@@ -54,15 +54,11 @@ function getConfig(type, sync = false) {
 /**
  * Returns parsed ini file as object by path
  * @param cPath
- * @param sync
+ * @param [sync]
  * @return {Promise<object>|object}
  * @throws if sync
  */
 function parseIni(cPath, sync = false) {
-	if (!cPath) {
-		return {};
-	}
-
 	if (sync) {
 		return iniparser.parseSync(cPath) || {};
 	}
@@ -80,8 +76,8 @@ function parseIni(cPath, sync = false) {
 
 /**
  * Returns config path by config type
- * @param type
- * @param sync
+ * @param [type]
+ * @param [sync]
  * @return {Promise<string>|string}
  * @throws if sync
  */
@@ -108,7 +104,7 @@ function getConfigPath(type, sync = false) {
 
 /**
  * Resolves local path if possible, then home path if possible and then custom path
- * @param sync
+ * @param [sync]
  * @return {Promise<string>|string}
  * @throws if sync
  */
@@ -128,7 +124,7 @@ function getConfigPathCascade(sync = false) {
 /**
  * Returns file path if file is available for reading
  * @param fName
- * @param sync
+ * @param [sync]
  * @return {Promise<string>|string}
  * @throws if sync
  */
@@ -145,7 +141,7 @@ function readResolve(fName, sync = false) {
 /**
  * Check if file is available for reading
  * @param fName
- * @param sync
+ * @param [sync]
  * @return {Promise|undefined}
  * @throws if sync
  */

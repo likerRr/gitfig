@@ -1,6 +1,6 @@
 {
   "name": "gitfig",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Resolves and returns git config as an object",
   "license": "MIT",
   "repository": "likerRr/gitfig",

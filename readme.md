@@ -25,7 +25,7 @@ gitFig();
 
 ## API
 
-### gitfig(@type|path)
+### gitfig([@type|path])
 
 #### @type
 
