@@ -7,16 +7,16 @@ const iniparser = require('iniparser');
 
 const CONFIG_TYPE = {
 	LOCAL: 0,
-	GLOBAL: 2
+	HOME: 2
 };
 
 // helpers
 const repoPathConfig = cPath => path.resolve(cPath, '.git/config');
 const homePathConfig = cPath => path.resolve(cPath, '.gitconfig');
-const localConfig = repoPathConfig(process.cwd());
-const globalConfig = homePathConfig(osHomedir());
+const localConfig = repoPathConfig(process.cwd()); // current working directory
+const homeConfig = homePathConfig(osHomedir()); // current user's home path
 const getConfigPathLocal = (sync = false) => readResolve(localConfig, sync);
-const getConfigPathGlobal = (sync = false) => readResolve(globalConfig, sync);
+const getConfigPathHome = (sync = false) => readResolve(homeConfig, sync);
 const getConfigPathRepo = (cPath, sync = false) => {
 	if (sync) {
 		try {
@@ -99,15 +99,15 @@ function getConfigPath(type, sync = false) {
 		return getConfigPathLocal(sync);
 	}
 
-	if (type === CONFIG_TYPE.GLOBAL) {
-		return getConfigPathGlobal(sync);
+	if (type === CONFIG_TYPE.HOME) {
+		return getConfigPathHome(sync);
 	}
 
 	return getConfigPathCascade(sync);
 }
 
 /**
- * Resolves local path if possible, then global path if possible and then custom path
+ * Resolves local path if possible, then home path if possible and then custom path
  * @param sync
  * @return {Promise<string>|string}
  * @throws if sync
@@ -117,12 +117,12 @@ function getConfigPathCascade(sync = false) {
 		try {
 			return getConfigPathLocal(sync); // catches in case of fail
 		} catch (err) {
-			return getConfigPathGlobal(sync); // throws in case of fail
+			return getConfigPathHome(sync); // throws in case of fail
 		}
 	}
 
 	return getConfigPathLocal(sync)
-		.then(resPath => resPath, () => getConfigPathGlobal(sync));
+		.then(resPath => resPath, () => getConfigPathHome(sync));
 }
 
 /**

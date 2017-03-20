@@ -28,7 +28,7 @@ gitFig();
 
 #### @type
 
-Possible values are 0 and 2. Can be accessed throw the constants in exported object: `LOCAL`, `GLOBAL`.
+Possible values are 0 and 2. Can be accessed throw the constants in exported object: `LOCAL`, `HOME`.
 
 Example:
  
@@ -36,20 +36,20 @@ Example:
 const gitFig = require('gitfig');
 
 console.log(gitFig.LOCAL);
-console.log(gitFig.GLOBAL);
+console.log(gitFig.HOME);
 ````
 
 #### path
 
 Type: string
 
-Path for looking git config for. Works for both git repos (you don't need to add `.git` in path) and custom home path.
+Path for looking git config for. Works for both git repos (you don't need to add `.git` in path) and (custom) home path.
 
 ----
 
 Asynchronously looks up for git config by cascade:
 1. The local config is looked for
-2. The global config is looked for
+2. The home config is looked for
 
 Returns promise which rejects if git config is not found.
 
@@ -58,8 +58,8 @@ Alternatively you can specify concrete place of look up:
 const gitFig = require('gitfig');
 
 gitFig(); // cascade
-gitFig(gitFig.LOCAL); // local
-gitFig(gitFig.GLOBAL); // global (in home path)
+gitFig(gitFig.LOCAL); // current working directory (from where script is called)
+gitFig(gitFig.HOME); // current user's home path
 gitFig('/var/www/mysite'); // looks for /var/www/mysite/.git/config or if failed - /var/www/mysite/.gitconfig
 ````
 
