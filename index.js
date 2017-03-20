@@ -26,8 +26,8 @@ const getConfigPathRepo = (cPath, sync = false) => {
 		}
 	}
 
-	return readResolve(repoPathConfig(cPath), sync)
-		.then(resPath => resPath, () => readResolve(homePathConfig(cPath), sync));
+	return readResolve(repoPathConfig(cPath), sync) // catches in case of fail
+		.catch(() => readResolve(homePathConfig(cPath), sync)); // throws in case of fail
 };
 
 // main api
@@ -121,8 +121,8 @@ function getConfigPathCascade(sync = false) {
 		}
 	}
 
-	return getConfigPathLocal(sync)
-		.then(resPath => resPath, () => getConfigPathHome(sync));
+	return getConfigPathLocal(sync) // catches in case of fail
+		.catch(() => getConfigPathHome(sync)); // throws in case of fail
 }
 
 /**
