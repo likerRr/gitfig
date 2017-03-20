@@ -1,7 +1,7 @@
 {
   "name": "gitfig",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Resolves and returns git config as an object",
   "license": "MIT",
   "repository": "likerRr/gitfig",
   "author": {
@@ -19,7 +19,14 @@
     "index.js"
   ],
   "keywords": [
-    ""
+    "git",
+    ".git",
+    ".gitconfig",
+    "config",
+    "object",
+    "promise",
+    "asynchronous",
+    "ini"
   ],
   "dependencies": {
     "iniparser": "^1.0.5",
