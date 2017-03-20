@@ -43,7 +43,7 @@ console.log(gitFig.GLOBAL);
 
 Type: string
 
-Path for looking git config in. Only looks for configs in git repositories (you don't need to add `.git` in path).
+Path for looking git config for. Works for both git repos (you don't need to add `.git` in path) and custom home path.
 
 ----
 
@@ -60,7 +60,7 @@ const gitFig = require('gitfig');
 gitFig(); // cascade
 gitFig(gitFig.LOCAL); // local
 gitFig(gitFig.GLOBAL); // global (in home path)
-gitFig('/var/www/mysite'); // custom path
+gitFig('/var/www/mysite'); // looks for /var/www/mysite/.git/config or if failed - /var/www/mysite/.gitconfig
 ````
 
 ### gitfig.sync(@type)

@@ -9,14 +9,26 @@ const CONFIG_TYPE = {
 	LOCAL: 0,
 	GLOBAL: 2
 };
-const localConfig = path.resolve(process.cwd(), '.git/config');
-const globalConfig = path.resolve(osHomedir(), '.gitconfig');
 
 // helpers
 const repoPathConfig = cPath => path.resolve(cPath, '.git/config');
+const homePathConfig = cPath => path.resolve(cPath, '.gitconfig');
+const localConfig = repoPathConfig(process.cwd());
+const globalConfig = homePathConfig(osHomedir());
 const getConfigPathLocal = (sync = false) => readResolve(localConfig, sync);
 const getConfigPathGlobal = (sync = false) => readResolve(globalConfig, sync);
-const getConfigPathRepo = (cPath, sync = false) => readResolve(repoPathConfig(cPath), sync);
+const getConfigPathRepo = (cPath, sync = false) => {
+	if (sync) {
+		try {
+			return readResolve(repoPathConfig(cPath), sync); // catches in case of fail
+		} catch (err) {
+			return readResolve(homePathConfig(cPath), sync); // throws in case of fail
+		}
+	}
+
+	return readResolve(repoPathConfig(cPath), sync)
+		.then(resPath => resPath, () => readResolve(homePathConfig(cPath), sync));
+};
 
 // main api
 const gitFig = type => getConfig(type, false);
