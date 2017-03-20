@@ -10,27 +10,27 @@ const CONFIG_TYPE = {
 	HOME: 2
 };
 
-// helpers
+// Helpers
 const repoPathConfig = cPath => path.resolve(cPath, '.git/config');
 const homePathConfig = cPath => path.resolve(cPath, '.gitconfig');
-const localConfig = repoPathConfig(process.cwd()); // current working directory
-const homeConfig = homePathConfig(osHomedir()); // current user's home path
+const localConfig = repoPathConfig(process.cwd()); // Current working directory
+const homeConfig = homePathConfig(osHomedir()); // Current user's home path
 const getConfigPathLocal = (sync = false) => readResolve(localConfig, sync);
 const getConfigPathHome = (sync = false) => readResolve(homeConfig, sync);
 const getConfigPathRepo = (cPath, sync = false) => {
 	if (sync) {
 		try {
-			return readResolve(repoPathConfig(cPath), sync); // catches in case of fail
+			return readResolve(repoPathConfig(cPath), sync); // Catches in case of fail
 		} catch (err) {
-			return readResolve(homePathConfig(cPath), sync); // throws in case of fail
+			return readResolve(homePathConfig(cPath), sync); // Throws in case of fail
 		}
 	}
 
-	return readResolve(repoPathConfig(cPath), sync) // catches in case of fail
-		.catch(() => readResolve(homePathConfig(cPath), sync)); // throws in case of fail
+	return readResolve(repoPathConfig(cPath), sync) // Catches in case of fail
+		.catch(() => readResolve(homePathConfig(cPath), sync)); // Throws in case of fail
 };
 
-// main api
+// Main api
 const gitFig = type => getConfig(type, false);
 
 gitFig.sync = type => getConfig(type, true);
@@ -67,7 +67,7 @@ function parseIni(cPath, sync = false) {
 		return iniparser.parseSync(cPath) || {};
 	}
 
-	// supports path as just value either as a promise
+	// Supports path as just value either as a promise
 	return new Promise((resolve, reject) => {
 		Promise.resolve(cPath)
 			.then(rPath => iniparser.parse(rPath, (err, data) => {
@@ -115,14 +115,14 @@ function getConfigPath(type, sync = false) {
 function getConfigPathCascade(sync = false) {
 	if (sync) {
 		try {
-			return getConfigPathLocal(sync); // catches in case of fail
+			return getConfigPathLocal(sync); // Catches in case of fail
 		} catch (err) {
-			return getConfigPathHome(sync); // throws in case of fail
+			return getConfigPathHome(sync); // Throws in case of fail
 		}
 	}
 
-	return getConfigPathLocal(sync) // catches in case of fail
-		.catch(() => getConfigPathHome(sync)); // throws in case of fail
+	return getConfigPathLocal(sync) // Catches in case of fail
+		.catch(() => getConfigPathHome(sync)); // Throws in case of fail
 }
 
 /**
