@@ -4,5 +4,6 @@ import gitFig from '.';
 test('api is consistence', t => {
 	t.is(typeof gitFig, 'function');
 	t.is(typeof gitFig.sync, 'function');
-	t.is(typeof gitFig.CONFIG_TYPE, 'object');
+	t.is(typeof gitFig.LOCAL, 'number');
+	t.is(typeof gitFig.GLOBAL, 'number');
 });

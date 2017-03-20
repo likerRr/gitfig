@@ -22,7 +22,7 @@ const getConfigPathRepo = (cPath, sync = false) => readResolve(repoPathConfig(cP
 const gitFig = type => getConfig(type, false);
 
 gitFig.sync = type => getConfig(type, true);
-gitFig.CONFIG_TYPE = CONFIG_TYPE;
+Object.assign(gitFig, CONFIG_TYPE);
 
 module.exports = gitFig;
 
